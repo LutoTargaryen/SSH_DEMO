@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.luto.ssh.pojo.StudentInfo" table="STUDENTINFO">
+        <id name="stuId" type="java.lang.Integer">
+            <column name="STU_ID" />
+            <generator class="native" />
+        </id>
+        <property name="stuName" type="java.lang.String">
+            <column name="STU_NAME" />
+        </property>
+        <property name="stuSex" type="java.lang.String">
+            <column name="STU_SEX" />
+        </property>
+        <many-to-one name="type" class="com.luto.ssh.pojo.TypeInfo" fetch="join">
+            <column name="TYPE_ID" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

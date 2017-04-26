@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.action.extension" value="do" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.enable.SlashesInActionNames" value="true" />
+	
+	<!-- 将struts2创建Action的权力交给Spring容器管理 -->
+	<!-- <constant name="struts.objectFactory" value="spring" /> -->
+	
+	<!-- 配置基本包 -->
+	<package name="base" extends="struts-default" abstract="true">
+		
+	</package>
+	
+	<!-- 主页action -->
+	<package name="indexpkg" extends="base">
+		<action name="indexAction">
+			<result>/WEB-INF/stu/list.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 包含分散配置 -->
+	<include file="config/struts-stu.xml" />
+</struts>

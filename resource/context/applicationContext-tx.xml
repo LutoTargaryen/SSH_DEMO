@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd" >
+		<!-- 配置事务控制 -->
+		<!-- 1、配置事务管理器(spring-tx) -->
+		<bean id="myTransactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+			<!-- 注入Spring整合的SessionFactory对象 -->
+			<property name="sessionFactory" ref="mySessionFactory" />
+		</bean>
+		
+		<!-- 2、 配置事务传播性 -->
+		<tx:advice id="txAdvice" transaction-manager="myTransactionManager">
+			<tx:attributes>
+				<tx:method name="save*" propagation="REQUIRED"/>
+				<tx:method name="insert*" propagation="REQUIRED"/>
+				<tx:method name="remove*" propagation="REQUIRED"/>
+				<tx:method name="delete*" propagation="REQUIRED"/>
+				<tx:method name="modify*" propagation="REQUIRED"/>
+				<tx:method name="update*" propagation="REQUIRED"/>
+				<tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+				<tx:method name="load*" propagation="SUPPORTS" read-only="true"/>
+				<tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+				<tx:method name="count*" propagation="SUPPORTS" read-only="true"/>
+				<tx:method name="*" read-only="true" rollback-for="com.luto.ssh.exception.BusinessException"/>
+			</tx:attributes>
+		</tx:advice>
+		
+		<!-- 3、组装切入点和事务传播性 -->
+		<aop:config>
+			<!-- 定义切入点 -->
+			<aop:pointcut expression="execution(* com.luto.ssh.service..*.*(..))" id="pcut"/>
+			<!-- 组装 -->
+			<aop:advisor advice-ref="txAdvice" pointcut-ref="pcut"/>
+		</aop:config>
+</beans>

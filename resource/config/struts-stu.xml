@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="stupkg" extends="base" namespace="/stu">
+		<action name="studentAction/*" class="stuAction" method="{1}">
+			<result>/WEB-INF/stu/list.jsp</result>
+			<result type="redirectAction" name="list">studentAction/listStudent</result>
+			<result name="initAdd">/WEB-INF/stu/add.jsp</result>
+			<result name="initUpdate">/WEB-INF/stu/update.jsp</result>
+		</action>
+	</package>
+	
+</struts>

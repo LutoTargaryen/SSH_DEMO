@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd" >
+		<!-- 配置DAO -->
+		<bean id="stuDao" class="com.luto.ssh.dao.StudentDAOImpl">
+			<property name="sessionFactory" ref="mySessionFactory" />
+		</bean>
+		
+		<!-- 配置Service -->
+		<bean id="stuService" class="com.luto.ssh.service.StudentServiceImpl">
+			<property name="stuDao" ref="stuDao" />
+		</bean>
+		
+		<!-- 配置Action -->
+		<bean id="stuAction" class="com.luto.ssh.action.StudentAction" scope="prototype">
+			<property name="stuService" ref="stuService" />
+		</bean>
+</beans>
